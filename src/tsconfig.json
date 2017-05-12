@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "../dist",
+    "lib": [
+      "es6"
+    ],
+    "types": ["node"],
+    "sourceMap": true,
+    "rootDir": "."
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
