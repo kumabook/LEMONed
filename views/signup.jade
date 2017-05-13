@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 signup
+  form#signup(name='signup' method='post' action='signup')
+    label(for='email') Email Adress
+    input.text(name='email' type='text')
+    label(for='password') Password
+    input.text(name='password' type='password')
+    label(for='password_confirmation') Password
+    input.text(name='password_confirmation' type='password')
+    input.btn(type='submit' value='Login')
+
