@@ -10,15 +10,15 @@ gulp.task('test', ['tsc:test'],
 
 gulp.task('browser-sync', ['nodemon', 'watch'], () => browserSync.init(null, {
   proxy: 'http://localhost:4000',
-  files: ['dist/**/*.*', 'dist/routes/**/*.*', 'public/**/*.*', 'views/**/*.*'],
+  files: ['lib/**/*.*', 'lib/routes/**/*.*', 'public/**/*.*', 'views/**/*.*'],
   port:  7000,
 }));
 
 gulp.task('nodemon', (cb) => {
   let started = false;
   return nodemon({
-    script: 'dist/www.js',
-    watch:  ['dist/*.js'],
+    script: 'lib/server.js',
+    watch:  ['lib/*.js'],
   }).on('start', () => {
     if (!started) {
       cb();
