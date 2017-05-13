@@ -6,7 +6,7 @@ const nodemon     = require('gulp-nodemon');
 gulp.task('test', () => gulp.src('./test/*.js', { read: false })
                             .pipe(mocha()));
 
-gulp.task('browser-sync', ['nodemon', 'watch'], () => browserSync.init(null, {
+gulp.task('browser-sync', ['nodemon'], () => browserSync.init(null, {
   proxy: 'http://localhost:4000',
   files: ['lib/**/*.*', 'lib/routes/**/*.*', 'public/**/*.*', 'views/**/*.*'],
   port:  7000,
@@ -24,10 +24,6 @@ gulp.task('nodemon', (cb) => {
     }
   }).on('restart', () =>
         setTimeout(() => browserSync.reload({ stream: false }), 500));
-});
-
-gulp.task('watch', () => {
-  gulp.watch('src/**/*.ts', ['build']);
 });
 
 gulp.task('default', ['browser-sync']);
