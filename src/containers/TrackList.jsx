@@ -9,6 +9,7 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import { withRouter } from 'react-router-dom';
 
 class TrackList extends React.Component {
   render() {
@@ -40,5 +41,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TrackList);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TrackList));
 
