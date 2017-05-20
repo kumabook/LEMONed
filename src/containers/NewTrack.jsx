@@ -58,7 +58,14 @@ class NewTrack extends React.Component {
           signingUrl="/s3/sign"
           signingUrlMethod="GET"
           accept="image/*"
-          server="http://cross-origin-server.com" />
+          onProgress={this.props.onUploadProgress}
+          onError={this.props.onUploadError}
+          onFinish={this.props.onUploadFinish}
+          signingUrlWithCredentials
+          uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}
+          contentDisposition="auto"
+          scrubFilename={filename => filename.replace(/[^\w\d_\-\.]+/ig, '')}
+        />
         <br />
         <TextField
           hintText="duration"
@@ -84,6 +91,14 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
+    onUploadStart: () => {
+    },
+    onUploadProgress: () => {
+    },
+    onUploadError: () => {
+    },
+    onUploadFinish: (args) => {
+    },
   };
 }
 
