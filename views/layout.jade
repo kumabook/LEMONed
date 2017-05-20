@@ -1,7 +1,15 @@
+- let flashMessage = '';
+- if (message && message.error) {
+-   flashMessage = message.error;
+- }
 doctype html
 html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(type='text/javascript').
+      var flashMessage = "#{flashMessage}";
+      var title = "#{title}";
+      var isLoggedIn= #{isLoggedIn};
   body
     block content

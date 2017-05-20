@@ -21,6 +21,8 @@ import reducers from './reducers';
 import rootSaga from './sagas';
 
 import App from './containers/App';
+import Login from './containers/Login';
+import SignUp from './containers/SignUp';
 import TrackList from './containers/TrackList';
 import NewTrack from './containers/NewTrack';
 
@@ -36,6 +38,8 @@ render(
     <Provider store={store}>
       <BrowserRouter history={history}>
         <App>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
           <Route exact path="/tracks" component={TrackList} />
           <Route exact path="/tracks/new" component={NewTrack} />
         </App>

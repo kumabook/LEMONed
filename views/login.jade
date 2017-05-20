@@ -1,10 +1,5 @@
 extends layout
 
 block content
-  h1 login
-  form#login(name='login' method='post' action='login')
-    label(for='email') Email Adress
-    input.text(name='email' type='text')
-    label(for='password') Password
-    input.text(name='password' type='password')
-    input.btn(type='submit' value='Login')
+  #container
+  script(src="/bundle.js")
