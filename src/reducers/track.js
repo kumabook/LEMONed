@@ -1,34 +1,27 @@
 import { combineReducers } from 'redux';
+import {
+  index,
+} from '../actions/track';
 
-export const Status = {
-  Normal:   'Normal',
-  Dirty:    'Dirty',
-  Fetching: 'Fetching',
-};
-
-const status = (state = Status.Dirty, action) => {
+const total = (state = 0, action) => {
   switch (action.type) {
-    case 'FETCH_TRACK':
-      return Status.Fetching;
-    case 'RECEIVE_TRACK':
-      return Status.Normal;
-    case 'UPDATE_TRACK':
-      return Status.Dirty;
+    case 'FETCH_TRACKS_SUCCEEDED':
+      return action.payload.total;
     default:
       return state;
   }
 };
 
-const item = (state = {}, action) => {
+const items = (state = [], action) => {
   switch (action.type) {
-    case 'RECEIVE_TRACK':
-      return action.item;
+    case index.success:
+      return action.payload.items;
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  status,
-  item,
+  total,
+  items,
 });
