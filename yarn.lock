@@ -1344,6 +1344,10 @@ circular-json@^0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.1.tgz#be8b36aefccde8b3ca7aa2d6afc07a37242c0d2d"
 
+classnames@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
+
 clean-css@^3.1.9:
   version "3.4.26"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-3.4.26.tgz#55323b344ff3bcee684a2eac81c93df8fa73deeb"
@@ -4687,7 +4691,7 @@ rc@^1.0.1, rc@^1.1.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-addons-create-fragment@^15.4.0:
+react-addons-create-fragment@^15.0.0, react-addons-create-fragment@^15.4.0:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react-addons-create-fragment/-/react-addons-create-fragment-15.5.4.tgz#048acb2f332a3f450beae0be66824ed91e66e122"
   dependencies:
@@ -4720,6 +4724,15 @@ react-event-listener@^0.4.5:
     prop-types "^15.5.4"
     warning "^3.0.0"
 
+react-paginate@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/react-paginate/-/react-paginate-4.4.2.tgz#ca1a34c518b99f171e04234b5c62f4ac98568d40"
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.7"
+    react "^15.0.0"
+    react-addons-create-fragment "^15.0.0"
+
 react-redux@^5.0.4:
   version "5.0.4"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.4.tgz#1563babadcfb2672f57f9ceaa439fb16bf85d55b"
@@ -4738,6 +4751,14 @@ react-router-dom@^4.1.1:
   dependencies:
     history "^4.5.1"
     loose-envify "^1.3.1"
+    prop-types "^15.5.4"
+    react-router "^4.1.1"
+
+react-router-redux@next:
+  version "5.0.0-alpha.6"
+  resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-5.0.0-alpha.6.tgz#7418663c2ecd3c51be856fcf28f3d1deecc1a576"
+  dependencies:
+    history "^4.5.1"
     prop-types "^15.5.4"
     react-router "^4.1.1"
 
@@ -4769,7 +4790,7 @@ react-tap-event-plugin@^2.0.1:
   dependencies:
     fbjs "^0.8.6"
 
-react@^15.5.4:
+react@^15.0.0, react@^15.5.4:
   version "15.5.4"
   resolved "https://registry.yarnpkg.com/react/-/react-15.5.4.tgz#fa83eb01506ab237cdc1c8c3b1cea8de012bf047"
   dependencies:
@@ -5790,6 +5811,10 @@ update-notifier@0.5.0:
     repeating "^1.1.2"
     semver-diff "^2.0.0"
     string-length "^1.0.0"
+
+url-search-params-polyfill@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/url-search-params-polyfill/-/url-search-params-polyfill-1.2.0.tgz#ad8150c701cd2005c2e8cc20ab5b683dd0372b16"
 
 url@0.10.3:
   version "0.10.3"
