@@ -1,6 +1,7 @@
 /* eslint no-underscore-dangle: ["error", { "allow": ["__PRELOADED_STATE__"] }] */
 import 'babel-polyfill';
-import * as React from "react";
+import 'url-search-params-polyfill';
+import * as React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
