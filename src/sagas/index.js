@@ -1,20 +1,32 @@
 import {
-  call,
-  put,
-  takeEvery,
+  fork,
 } from 'redux-saga/effects';
-import track from '../api/track';
+import {
+  watchFetchTracks,
+  watchCreateTrack,
+  watchUpdateTrack,
+  watchDestroyTrack,
+} from './track';
+import {
+  watchFetchArtists,
+  watchCreateArtist,
+  watchUpdateArtist,
+  watchDestroyArtist,
+} from './artist';
+import routerSaga from './router';
 
-function* fetchTracks() {
-  try {
-    const user = yield call(track.index, 1, 10);
-    yield put({ type: 'TRACKS_FETCH_SUCCEEDED', user });
-  } catch (e) {
-    yield put({ type: 'TRACKS_FETCH_FAILED', message: e.message });
-  }
-}
+export default function* root() {
+  yield [
+    fork(watchFetchArtists),
+    fork(watchCreateArtist),
+    fork(watchUpdateArtist),
+    fork(watchDestroyArtist),
 
-export default function* root(){
-  yield* [takeEvery("TRACKS_FETCH", fetchTracks)];
+    fork(watchFetchTracks),
+    fork(watchCreateTrack),
+    fork(watchUpdateTrack),
+    fork(watchDestroyTrack),
+    fork(routerSaga),
+  ];
 }
 
