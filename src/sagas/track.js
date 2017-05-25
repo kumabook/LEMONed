@@ -17,7 +17,7 @@ import {
   creators,
 } from '../actions/track';
 
-export function* fetchTracks({ payload: { page = 1, perPage = 10 } }) {
+export function* fetchTracks({ payload: { page = 0, perPage = 10 } }) {
   try {
     const items = yield call(api.index, page, perPage);
     yield put(creators.index.success(items));
@@ -54,7 +54,7 @@ export function* updateTrack({ payload }) {
     yield put(showProgress());
     const item = yield call(api.update, payload);
     yield put(creators.update.success(item));
-    yield put(creators.index.start({ page: 1, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: 10 }));
   } catch (e) {
     yield put(creators.update.failure(e));
     yield put(showMessage(e.message));
@@ -72,7 +72,7 @@ function* destroyTrack({ payload }) {
     yield put(showProgress());
     const result = yield call(api.destroy, payload);
     yield put(creators.destroy.success(result));
-    yield put(creators.index.start({ page: 1, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: 10 }));
   } catch (e) {
     yield put(creators.destroy.failure(e));
     yield put(showMessage(e.message));
