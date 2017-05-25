@@ -40,6 +40,21 @@ class Form extends React.Component {
     const item = Object.assign({}, this.state.item, { [name]: value });
     this.setState({ item });
   }
+  handleDateValueChange(name, value) {
+    const date = new Date(this.state.item[name]) || new Date();
+    date.setFullYear(value.getFullYear(),
+                     value.getMonth(),
+                     value.getDate());
+    this.handleValueChange(name, date);
+  }
+  handleTimeValueChange(name, value) {
+    const date = new Date(this.state.item[name]) || new Date();
+    date.setHours(value.getHours(),
+                  value.getMinutes(),
+                  value.getSeconds(),
+                  value.getMilliseconds());
+    this.handleValueChange(name, date);
+  }
   handleUploadFinish(name, { publicUrl }) {
     this.handleValueChange(name, getFileUrl(publicUrl));
   }
@@ -102,21 +117,23 @@ class Form extends React.Component {
               floatingLabelText={name}
               floatingLabelFixed
               autoOk
-              value={this.state.item[name]}
+              value={new Date(this.state.item[name])}
             />
           );
         case 'date-time':
           return (
             <div key={name}>
               <DatePicker
-                floatingLabelText={`${name}:date`}
+                value={new Date(this.state.item[name])}
                 floatingLabelFixed
                 autoOk
+                onChange={(e, value) => this.handleDateValueChange(name, value)}
               />
               <TimePicker
-                floatingLabelText={`${name}:time`}
+                value={new Date(this.state.item[name])}
                 floatingLabelFixed
                 autoOk
+                onChange={(e, value) => this.handleTimeValueChange(name, value)}
               />
             </div>
           );
