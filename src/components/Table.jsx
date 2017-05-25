@@ -13,20 +13,21 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import ContentRemove from 'material-ui/svg-icons/content/remove';
+import FlatButton from 'material-ui/FlatButton';
 import Paginate from './Paginate';
 import Form from './Form';
-import FlatButton from 'material-ui/FlatButton';
 
 const imageHeight = 44;
 
-const columnType = (info) => {
-  const type = info.type;
+const widgetType = (schema, tableSchema) => {
+  const type = schema.type;
+  const widget = tableSchema && tableSchema['ui:widget'];
   if (type === 'string') {
-    if (info.format === 'data-url') {
-      if (info.contentType === 'image') {
+    if (schema.format === 'data-url') {
+      if (widget === 'img') {
         return 'image';
       }
-      if (info.contentType === 'audio') {
+      if (widget === 'audio') {
         return 'audio';
       }
       return 'link';
@@ -46,6 +47,8 @@ class ResourceTable extends React.Component {
   static get propTypes() {
     return {
       schema:       PropTypes.object.isRequired,
+      tableSchema:  PropTypes.object.isRequired,
+      formSchema:   PropTypes.object.isRequired,
       items:        PropTypes.array.isRequired,
       page:         PropTypes.number.isRequired,
       perPage:      PropTypes.number.isRequired,
@@ -104,6 +107,7 @@ class ResourceTable extends React.Component {
       >
         <Form
           schema={this.props.schema}
+          formSchema={this.props.formSchema}
           item={this.state.item}
           onSubmit={item => this.handleCreateDialogSubmit(item)}
           submitButtonLabel="Create"
@@ -122,6 +126,7 @@ class ResourceTable extends React.Component {
       >
         <Form
           schema={this.props.schema}
+          formSchema={this.props.formSchema}
           item={this.state.item}
           onSubmit={this.handleEditDialogSubmit}
           submitButtonLabel="Update"
@@ -207,9 +212,10 @@ class ResourceTable extends React.Component {
     ];
   }
   renderRows(properties) {
-    return this.props.items.map((item) => {
+    const { items, tableSchema } = this.props;
+    return items.map((item) => {
       const columns = properties.map(([name, info]) => {
-        switch (columnType(info)) {
+        switch (widgetType(info, tableSchema[name])) {
           case 'link':
             return [name, <a href={item[name]}>{item[name]}</a>];
           case 'image':
@@ -251,9 +257,12 @@ class ResourceTable extends React.Component {
     });
   }
   render() {
-    const { schema } = this.props;
+    const { schema, tableSchema } = this.props;
     const properties = Object.entries(schema.properties)
-                             .filter(([name]) => schema.listing.includes(name));
+                             .filter(([name]) => {
+                               const v = tableSchema[name];
+                               return !v || v['ui:widget'] !== 'hidden';
+                             });
     return (
       <div>
         <Table selectable={false}>

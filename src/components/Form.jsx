@@ -15,26 +15,30 @@ const dateFieldStyle = {
   display:  'inline-block',
 };
 
-const fieldType = (info) => {
-  if (info.type === 'integer' || info.type === 'float') {
+const fieldType = (schema, formSchema) => {
+  if (formSchema && formSchema['ui:widget']) {
+    return formSchema['ui:widget'];
+  }
+  if (schema.type === 'integer' || schema.type === 'float') {
     return 'number';
   }
-  if (info.type === 'string') {
-    if (info.format === 'data-url') {
+  if (schema.type === 'string') {
+    if (schema.format === 'data-url') {
       return 'data-url';
-    } else if (info.format === 'date') {
+    } else if (schema.format === 'date') {
       return 'date';
-    } else if (info.format === 'date-time') {
+    } else if (schema.format === 'date-time') {
       return 'date-time';
     }
   }
-  return info.type;
+  return schema.type;
 };
 
 class Form extends React.Component {
   static get propTypes() {
     return {
       schema:            PropTypes.object.isRequired,
+      formSchema:        PropTypes.object.isRequired,
       item:              PropTypes.object.isRequired,
       onSubmit:          PropTypes.func.isRequired,
       submitButtonLabel: PropTypes.string.isRequired,
@@ -67,11 +71,14 @@ class Form extends React.Component {
     this.handleValueChange(name, getFileUrl(publicUrl));
   }
   render() {
-    const { schema } = this.props;
-    const properties = Object.entries(schema.properties)
-                             .filter(([name]) => !schema.primaryKeys.includes(name));
-    const fields = properties.map(([name, info]) => {
-      switch (fieldType(info)) {
+    const properties = Object.entries(this.props.schema.properties)
+                             .filter(([name]) => {
+                               const v = this.props.formSchema[name];
+                               return !v || v['ui:widget'] !== 'hidden';
+                             });
+    const fields = properties.map(([name, schema]) => {
+      const formSchema = this.props.formSchema[name] || {};
+      switch (fieldType(schema, formSchema)) {
         case 'number':
           return (
             <div key={name}>
@@ -89,6 +96,7 @@ class Form extends React.Component {
           return (
             <div key={name}>
               <TextField
+                {...formSchema['ui:options']}
                 hintText={name}
                 floatingLabelText={name}
                 floatingLabelFixed
@@ -104,18 +112,8 @@ class Form extends React.Component {
                 hintText={name}
                 floatingLabelText={name}
                 floatingLabelFixed
+                onChange={(event, value) => this.handleValueChange(name, value)}
                 value={this.state.item[name] || ''}
-              />
-              <ReactS3Uploader
-                style={{ display: 'inline', paddingLeft: 12 }}
-                signingUrl="/s3/sign"
-                signingUrlMethod="GET"
-                accept="*"
-                signingUrlWithCredentials
-                uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}
-                contentDisposition="auto"
-                scrubFilename={filename => filename.replace(/[^\w\d_\-.]+/ig, '')}
-                onFinish={result => this.handleUploadFinish(name, result)}
               />
             </div>
           );
@@ -147,6 +145,29 @@ class Form extends React.Component {
                 floatingLabelFixed
                 autoOk
                 onChange={(e, value) => this.handleTimeValueChange(name, value)}
+              />
+            </div>
+          );
+        case 's3-uploader':
+          return (
+            <div key={name}>
+              <TextField
+                hintText={name}
+                floatingLabelText={name}
+                floatingLabelFixed
+                value={this.state.item[name] || ''}
+                onChange={(event, value) => this.handleValueChange(name, value)}
+              />
+              <ReactS3Uploader
+                style={{ display: 'inline', paddingLeft: 12 }}
+                signingUrl="/s3/sign"
+                signingUrlMethod="GET"
+                accept="*"
+                signingUrlWithCredentials
+                uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}
+                contentDisposition="auto"
+                scrubFilename={filename => filename.replace(/[^\w\d_\-.]+/ig, '')}
+                onFinish={result => this.handleUploadFinish(name, result)}
               />
             </div>
           );
