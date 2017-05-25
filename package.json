@@ -6,6 +6,9 @@
   "repository": "https://github.com/kumabook/LEMONed",
   "author": "Hiroki Kumamoto <kumabook@live.jp>",
   "license": "MIT",
+  "engines": {
+    "node": "7.2.0"
+  },
   "scripts": {
     "build": "webpack",
     "webpack": "webpack --progress --colors --watch",
