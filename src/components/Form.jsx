@@ -6,6 +6,7 @@ import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import ReactS3Uploader from 'react-s3-uploader';
 import { getFileUrl } from '../utils/url';
+import dateUtil from '../utils/date';
 
 const dateFieldWidth = 96;
 const dateFieldStyle = {
@@ -48,14 +49,14 @@ class Form extends React.Component {
     this.setState({ item });
   }
   handleDateValueChange(name, value) {
-    const date = new Date(this.state.item[name]) || new Date();
+    const date = dateUtil.parse(this.state.item[name]);
     date.setFullYear(value.getFullYear(),
                      value.getMonth(),
                      value.getDate());
     this.handleValueChange(name, date);
   }
   handleTimeValueChange(name, value) {
-    const date = new Date(this.state.item[name]) || new Date();
+    const date = dateUtil.parse(this.state.item[name]);
     date.setHours(value.getHours(),
                   value.getMinutes(),
                   value.getSeconds(),
@@ -125,7 +126,7 @@ class Form extends React.Component {
               floatingLabelText={name}
               floatingLabelFixed
               autoOk
-              value={new Date(this.state.item[name])}
+              value={dateUtil.parse(this.state.item[name])}
             />
           );
         case 'date-time':
@@ -133,7 +134,7 @@ class Form extends React.Component {
             <div key={name}>
               <DatePicker
                 style={dateFieldStyle}
-                value={new Date(this.state.item[name])}
+                value={dateUtil.parse(this.state.item[name])}
                 floatingLabelText={name}
                 floatingLabelFixed
                 autoOk
@@ -141,7 +142,7 @@ class Form extends React.Component {
               />
               <TimePicker
                 style={dateFieldStyle}
-                value={new Date(this.state.item[name])}
+                value={dateUtil.parse(this.state.item[name])}
                 floatingLabelText=" "
                 floatingLabelFixed
                 autoOk
