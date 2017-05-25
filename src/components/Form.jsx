@@ -5,6 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import DatePicker from 'material-ui/DatePicker';
 import TimePicker from 'material-ui/TimePicker';
 import ReactS3Uploader from 'react-s3-uploader';
+import { getFileUrl } from '../utils/url';
 
 const fieldType = (info) => {
   if (info.type === 'integer' || info.type === 'float') {
@@ -38,6 +39,9 @@ class Form extends React.Component {
   handleValueChange(name, value) {
     const item = Object.assign({}, this.state.item, { [name]: value });
     this.setState({ item });
+  }
+  handleUploadFinish(name, { publicUrl }) {
+    this.handleValueChange(name, getFileUrl(publicUrl));
   }
   render() {
     const { schema } = this.props;
@@ -87,6 +91,7 @@ class Form extends React.Component {
                 uploadRequestHeaders={{ 'x-amz-acl': 'public-read' }}
                 contentDisposition="auto"
                 scrubFilename={filename => filename.replace(/[^\w\d_\-.]+/ig, '')}
+                onFinish={result => this.handleUploadFinish(name, result)}
               />
             </div>
           );
