@@ -46,7 +46,7 @@ function* createTrack({ payload }) {
 }
 
 export function* watchCreateTrack() {
-  yield takeEvery(create.start, createTrack, {});
+  yield takeEvery(create.start, createTrack);
 }
 
 export function* updateTrack({ payload }) {
