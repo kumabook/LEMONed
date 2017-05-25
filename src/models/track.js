@@ -8,12 +8,28 @@ export const schema = {
     url:          { type: 'string' },
     title:        { type: 'string' },
     description:  { type: 'string' },
-    thumbnailUrl: { type: 'string', format: 'data-url', contentType: 'image' },
-    artworkUrl:   { type: 'string', format: 'data-url', contentType: 'image' },
-    audioUrl:     { type: 'string', format: 'data-url', contentType: 'audio' },
+    thumbnailUrl: { type: 'string', format: 'data-url' },
+    artworkUrl:   { type: 'string', format: 'data-url' },
+    audioUrl:     { type: 'string', format: 'data-url' },
     publishedAt:  { type: 'string', format: 'date-time' },
   },
   required:    [],
-  listing:     ['id', 'artistId', 'title', 'thumbnailUrl', 'audioUrl'],
   primaryKeys: ['id'],
+};
+
+export const tableSchema = {
+  url:          { 'ui:widget': 'hidden' },
+  description:  { 'ui:widget': 'hidden' },
+  thumbnailUrl: { 'ui:widget': 'img' },
+  artworkUrl:   { 'ui:widget': 'hidden' },
+  audioUrl:     { 'ui:widget': 'audio' },
+  publishedAt:  { 'ui:widget': 'hidden' },
+};
+
+export const formSchema = {
+  id:           { 'ui:widget': 'hidden' },
+  description:  { 'ui:options': { multiLine: true } },
+  thumbnailUrl: { 'ui:widget': 's3-uploader' },
+  artworkUrl:   { 'ui:widget': 's3-uploader' },
+  audioUrl:     { 'ui:widget': 's3-uploader' },
 };
