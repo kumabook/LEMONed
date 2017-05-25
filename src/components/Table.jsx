@@ -17,6 +17,8 @@ import Paginate from './Paginate';
 import Form from './Form';
 import FlatButton from 'material-ui/FlatButton';
 
+const imageHeight = 44;
+
 const columnType = (info) => {
   const type = info.type;
   if (type === 'string') {
@@ -213,7 +215,7 @@ class ResourceTable extends React.Component {
           case 'image':
             return [name, (
               <a href={item[name]}>
-                <img src={item[name]} alt={item[name]} />
+                <img src={item[name]} alt={item[name]} height={imageHeight} />
               </a>
             )];
           case 'audio':
