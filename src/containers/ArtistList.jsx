@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
 import Table from '../components/Table';
-import { schema } from '../models/artist';
+import { schema, tableSchema, formSchema } from '../models/artist';
 import { creators } from '../actions/artist';
 import { defaultPerPage } from '../config';
 
@@ -27,6 +27,8 @@ class ArtistList extends React.Component {
     return (
       <Table
         schema={schema}
+        tableSchema={tableSchema}
+        formSchema={formSchema}
         items={this.props.items}
         page={this.props.page}
         perPage={this.props.perPage}
