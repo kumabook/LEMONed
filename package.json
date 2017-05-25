@@ -66,11 +66,11 @@
     "redux": "^3.6.0",
     "redux-saga": "^0.15.3",
     "sequelize": "^3.30.4",
+    "source-map-loader": "^0.2.1",
     "url-search-params-polyfill": "^1.2.0",
     "webpack": "^2.5.1"
   },
   "devDependencies": {
-    "browser-sync": "^2.18.8",
-    "source-map-loader": "^0.2.1"
+    "browser-sync": "^2.18.8"
   }
 }
