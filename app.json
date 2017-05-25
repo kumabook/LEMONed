@@ -2,5 +2,43 @@
   "name": "LEMONed",
   "description": "LEMONed - management server for multimedia content on s3",
   "repository": "https://github.com/kumabook/LEMONed",
-  "keywords": ["node", "express", "s3"]
+  "keywords": ["node", "express", "s3"],
+  "env": {
+    "SECRET_KEY": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "generator": "secret"
+    },
+    "BASIC_AUTH_USERNAME": {
+      "description": "User name for basic auth on signup page",
+      "value": "LEMONed"
+    },
+    "BASIC_AUTH_PASSWORD": {
+      "description": "Password for basic auth on signup page",
+      "value": "LEMONed"
+    },
+    "AWS_ACCESS_KEY_ID": {
+      "description": "Access key id for s3"
+    },
+    "AWS_SECRET_ACCESS_KEY": {
+      "description": "Secret Access key for s3"
+    },
+    "BUCKET": {
+      "description": "s3 bucket name"
+    },
+    "REGION": {
+      "description": "s3 region",
+      "value": "ap-northeast-1"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "addons": [{
+    "plan": "heroku-postgresql",
+    "options": {
+      "version": "9.5"
+    }
+  }]
 }
