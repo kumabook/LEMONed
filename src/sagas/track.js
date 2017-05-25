@@ -16,8 +16,9 @@ import {
   destroy,
   creators,
 } from '../actions/track';
+import { defaultPerPage } from '../config';
 
-export function* fetchTracks({ payload: { page = 0, perPage = 10 } }) {
+export function* fetchTracks({ payload: { page = 0, perPage = defaultPerPage } }) {
   try {
     const items = yield call(api.index, page, perPage);
     yield put(creators.index.success(items));
@@ -36,7 +37,7 @@ function* createTrack({ payload }) {
     yield put(showProgress());
     const item = yield call(api.create, payload);
     yield put(creators.create.success(item));
-    yield put(creators.index.start({ page: 1, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: defaultPerPage }));
   } catch (e) {
     yield put(creators.create.failure(e));
     yield put(showMessage(e.message));
@@ -54,7 +55,7 @@ export function* updateTrack({ payload }) {
     yield put(showProgress());
     const item = yield call(api.update, payload);
     yield put(creators.update.success(item));
-    yield put(creators.index.start({ page: 0, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: defaultPerPage }));
   } catch (e) {
     yield put(creators.update.failure(e));
     yield put(showMessage(e.message));
@@ -72,7 +73,7 @@ function* destroyTrack({ payload }) {
     yield put(showProgress());
     const result = yield call(api.destroy, payload);
     yield put(creators.destroy.success(result));
-    yield put(creators.index.start({ page: 0, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: defaultPerPage }));
   } catch (e) {
     yield put(creators.destroy.failure(e));
     yield put(showMessage(e.message));

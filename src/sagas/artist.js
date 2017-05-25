@@ -16,8 +16,10 @@ import {
   destroy,
   creators,
 } from '../actions/artist';
+import { defaultPerPage } from '../config';
 
-export function* fetchArtists({ payload: { page = 0, perPage = 10 } }) {
+
+export function* fetchArtists({ payload: { page = 0, perPage = defaultPerPage } }) {
   try {
     yield put(showProgress());
     const items = yield call(api.index, page, perPage);
@@ -39,7 +41,7 @@ function* createArtist({ payload }) {
     yield put(showProgress());
     const item = yield call(api.create, payload);
     yield put(creators.create.success(item));
-    yield put(creators.index.start({ page: 0, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: defaultPerPage }));
   } catch (e) {
     yield put(creators.create.failure(e));
     yield put(showMessage(e.message));
@@ -57,7 +59,7 @@ export function* updateArtist({ payload }) {
     yield put(showProgress());
     const item = yield call(api.update, payload);
     yield put(creators.update.success(item));
-    yield put(creators.index.start({ page: 0, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: defaultPerPage }));
   } catch (e) {
     yield put(creators.update.failure(e));
     yield put(showMessage(e.message));
@@ -75,7 +77,7 @@ function* destroyArtist({ payload }) {
     yield put(showProgress());
     const result = yield call(api.destroy, payload);
     yield put(creators.destroy.success(result));
-    yield put(creators.index.start({ page: 0, perPage: 10 }));
+    yield put(creators.index.start({ page: 0, perPage: defaultPerPage }));
   } catch (e) {
     yield put(creators.destroy.failure(e));
     yield put(showMessage(e.message));
