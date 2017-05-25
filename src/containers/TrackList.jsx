@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { push } from 'react-router-redux';
-import Table from '../components/Table';
+import { Table } from 'material-jsonschema';
 import { schema, tableSchema, formSchema } from '../models/track';
 import { creators } from '../actions/track';
 import { defaultPerPage } from '../config';
