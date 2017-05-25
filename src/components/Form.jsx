@@ -84,6 +84,7 @@ class Form extends React.Component {
                 value={this.state.item[name] || ''}
               />
               <ReactS3Uploader
+                style={{ display: 'inline', paddingLeft: 12 }}
                 signingUrl="/s3/sign"
                 signingUrlMethod="GET"
                 accept="*"
