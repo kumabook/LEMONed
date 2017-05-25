@@ -7,6 +7,13 @@ import TimePicker from 'material-ui/TimePicker';
 import ReactS3Uploader from 'react-s3-uploader';
 import { getFileUrl } from '../utils/url';
 
+const dateFieldWidth = 96;
+const dateFieldStyle = {
+  width:    dateFieldWidth,
+  overflow: 'hidden',
+  display:  'inline-block',
+};
+
 const fieldType = (info) => {
   if (info.type === 'integer' || info.type === 'float') {
     return 'number';
@@ -114,6 +121,7 @@ class Form extends React.Component {
         case 'date':
           return (
             <DatePicker
+              style={dateFieldStyle}
               floatingLabelText={name}
               floatingLabelFixed
               autoOk
@@ -124,13 +132,17 @@ class Form extends React.Component {
           return (
             <div key={name}>
               <DatePicker
+                style={dateFieldStyle}
                 value={new Date(this.state.item[name])}
+                floatingLabelText={name}
                 floatingLabelFixed
                 autoOk
                 onChange={(e, value) => this.handleDateValueChange(name, value)}
               />
               <TimePicker
+                style={dateFieldStyle}
                 value={new Date(this.state.item[name])}
+                floatingLabelText=" "
                 floatingLabelFixed
                 autoOk
                 onChange={(e, value) => this.handleTimeValueChange(name, value)}
