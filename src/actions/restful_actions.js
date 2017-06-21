@@ -17,7 +17,7 @@ export default (schema) => {
     actions[name] = {};
     actions.creators[name] = {};
     events.forEach((event) => {
-      const type = `${schema.title}:${name}:${event}`;
+      const type = `${schema.title}/${name}/${event}`;
       actions[name][event] = type;
       actions.creators[name][event] = payload => ({ type, payload });
     });
